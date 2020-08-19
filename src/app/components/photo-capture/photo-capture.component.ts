@@ -10,7 +10,7 @@ import { Ng2ImgMaxService } from 'ng2-img-max';
   styleUrls: ['./photo-capture.component.css']
 })
 export class PhotoCaptureComponent implements OnInit {
-
+  imgurl=null;
   uploadImage=null;
   images=null;
   constructor(private httpClient: HttpClient, private imageCompress: Ng2ImgMaxService) { }
@@ -21,6 +21,17 @@ export class PhotoCaptureComponent implements OnInit {
 
   onSelectFile(event) { // called each time file input changes
     let image = event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.imgurl = event.target.result;
+      }
+    }
+
 
     this.imageCompress.compressImage(image, 0.400).subscribe(
       result => {
@@ -56,9 +67,6 @@ uploadImageServer()
 
 
   }
-
-
-
 
 
 }

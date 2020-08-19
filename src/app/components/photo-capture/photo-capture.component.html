@@ -4,7 +4,7 @@
         <mat-card-title>Take Picture</mat-card-title>
         <mat-card-subtitle>Click the camera to take a picture</mat-card-subtitle>
       </mat-card-header>
-      <img *ngIf="imgurl!=null" mat-card-image [src]="uploadImage"  alt="Photo of a Shiba Inu">
+      <img  *ngIf="imgurl!=null" mat-card-image [src]="imgurl"  alt="Photo of a Shiba Inu">
       <img *ngIf="imgurl==null" mat-card-image src="../../../assets/camera.png" (click)="openCamera()" alt="Photo of a Shiba Inu">
       <input type="file" accept="image/*" capture="camera" (change)="onSelectFile($event)" >
       <button mat-raised-button (click)="uploadImageServer()" color="primary">Upload</button>
