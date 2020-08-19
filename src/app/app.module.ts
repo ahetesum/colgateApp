@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PhotoListComponent } from './components/photo-list/photo-list.component';
 import { PhotoCaptureComponent } from './components/photo-capture/photo-capture.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularMaterialModule } from './material.module';
 
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 
-
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,9 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
     HttpClientModule,
     Ng2ImgMaxModule
   ],
-  providers: [],
+  providers: [ LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

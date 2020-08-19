@@ -30,6 +30,8 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatBadgeModule} from '@angular/material/badge'
 import {MatListModule} from '@angular/material/list'
 import {MatGridListModule} from '@angular/material/grid-list'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {MatProgressBarModule} from '@angular/material/progress-bar'
 
 
 
@@ -47,6 +49,8 @@ import { from } from 'rxjs';
       MatBadgeModule,
       MatListModule,
       MatGridListModule,
+      MatProgressSpinnerModule,
+      MatProgressBarModule
 
    ],
    exports: [
@@ -57,6 +61,8 @@ import { from } from 'rxjs';
       MatListModule,
       MatGridListModule,
       MatCardModule,
+      MatProgressSpinnerModule,
+      MatProgressBarModule
    ],
    providers: [
    ]
