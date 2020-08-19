@@ -1,0 +1,39 @@
+<mat-card>
+
+    <mat-card-header>
+        <mat-card-title>Take Picture</mat-card-title>
+        <mat-card-subtitle>Click the camera to take a picture</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="imgurl!=null" mat-card-image [src]="uploadImage"  alt="Photo of a Shiba Inu">
+      <img *ngIf="imgurl==null" mat-card-image src="../../../assets/camera.png" (click)="openCamera()" alt="Photo of a Shiba Inu">
+      <input type="file" accept="image/*" capture="camera" (change)="onSelectFile($event)" >
+      <button mat-raised-button (click)="uploadImageServer()" color="primary">Upload</button>
+
+
+</mat-card>
+
+
+<div *ngIf="images!=null">
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>Week One </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="images.image1" alt="Week one Iamge">        
+  </mat-card>    
+
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>Week Two </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="images.image2"  alt="Week two Image">        
+  </mat-card>   
+
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>Week Three </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="images.image3" alt="Week Three Image">        
+  </mat-card>   
+
+</div>
+
