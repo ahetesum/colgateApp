@@ -13,6 +13,7 @@ export class PhotoCaptureComponent implements OnInit {
   imgurl=null;
   uploadImage=null;
   images=null;
+  compressSize=null;
   constructor(private httpClient: HttpClient, private imageCompress: Ng2ImgMaxService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,12 @@ export class PhotoCaptureComponent implements OnInit {
 
   onSelectFile(event) { // called each time file input changes
     let image = event.target.files[0];
+
+    console.log('size of the image in KB -',(image.size/1024))
+
+    this.compressSize= ((image.size/1024)*40)/100000;
+
+    console.log('this.compressSize --> '+this.compressSize)
 
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -33,11 +40,14 @@ export class PhotoCaptureComponent implements OnInit {
     }
 
 
-    this.imageCompress.compressImage(image, 0.400).subscribe(
+    this.imageCompress.compressImage(image, this.compressSize).subscribe(
       result => {
+        console.log('converted base64 in KB' ,(result.size/1024))
         getBase64ImageFromUrl(result).then((base64)=>{
-          this.uploadImage= base64;
-          console.log('base64',this.uploadImage)
+          this.uploadImage = base64;
+         // console.log('base64',this.uploadImage)
+         console.log('converted base64')
+
         })
 
       },
@@ -50,24 +60,21 @@ export class PhotoCaptureComponent implements OnInit {
 uploadImageServer()
   {
     console.log('Upload the the Camera Image..');
+    let headHeaders = new HttpHeaders({ "content-type": "application/json", "Accept": "application/json" });
 
-
-
-      let headHeaders = new HttpHeaders({ "content-type": "application/json", "Accept": "application/json" });
       let bodyJason= { image_url: this.uploadImage };
 
-      console.log(JSON.stringify(bodyJason ))
+      console.log('Post api calling')
 
-
-      this.httpClient.post<any>('https://cors-anywhere.herokuapp.com/http://staging30api.bigcityexperiences.co.in:5000/api/v1/imageteething',JSON.stringify(bodyJason ),{headers: headHeaders})
+      this.httpClient.post<any>('http://staging30api.bigcityexperiences.co.in:5000/api/v1/imageteething',JSON.stringify(bodyJason ),{headers: headHeaders})
       .subscribe(data => {
-        console.log('The result data is->',JSON.stringify(data))
+        console.log('The Success data is->',JSON.stringify(data))
         this.images =data
-      }) 
-
-
+      },
+      error => console.log('oops', error)
+      )
+   
   }
-
 
 }
 

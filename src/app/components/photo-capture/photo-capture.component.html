@@ -6,7 +6,9 @@
       </mat-card-header>
       <img  *ngIf="imgurl!=null" mat-card-image [src]="imgurl"  alt="Photo of a Shiba Inu">
       <img *ngIf="imgurl==null" mat-card-image src="../../../assets/camera.png" (click)="openCamera()" alt="Photo of a Shiba Inu">
-      <input type="file" accept="image/*" capture="camera" (change)="onSelectFile($event)" >
+      <input type="file" #csvInput hidden="true" type="file"  accept="image/*" capture="camera" (change)="onSelectFile($event)" >
+      <button class="pictureTake" mat-flat-button color="accent" (click)="csvInput.click()">Take Picture</button>
+
       <button mat-raised-button (click)="uploadImageServer()" color="primary">Upload</button>
 
 
